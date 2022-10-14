@@ -12,7 +12,54 @@ public class PhoneBook {
 
 	}
 
+
+	public static String[] findNumber(String name){
+
+		try(Scanner in = new Scanner(new File("file.txt"))) {
+			String[] s = new String[0];
+
+			boolean foundPerson = false;
+
+			while(in.hasNextLine()) {
+				s = in.nextLine().split(":");
+				if(s[0].equals(name)) {
+					System.out.println("The number associated with " + name + " is " + s[1]);
+					foundPerson = true;
+					break;
+				}
+
+				
+			}
+
+			if(!foundPerson){
+				System.out.println("Could not find " + name);
+				s = null;
+			}
+
+			return s;
+
+		}catch(IOException e){
+			System.out.println(e.getMessage());
+		
+		}
+		return null;
+		
+	}
+
+
+
 	public static void callContact(String name){
+
+		String s[] = new findNumber(name);
+
+		if(s != null){
+			System.out.println("Calling " + name + " at " + s[1]);
+		} else {
+			System.out.println("No person found named " + name);
+		}
+
+
+
 		System.out.println("Calling " + name);
 
 	}
@@ -39,32 +86,7 @@ public class PhoneBook {
 
 	}
 
-	public static void findNumber(String name){
 
-		try(Scanner in = new Scanner(new File("file.txt"))) {
-			String s[];
-
-			boolean foundPerson = false;
-
-			while(in.hasNextLine()) {
-				s = in.nextLine().split(":");
-				if(s[0].equals(name)) {
-					System.out.println("The number associated with " + name + " is " + s[1]);
-					foundPerson = true;
-				}
-
-				
-			}
-
-			if(!foundPerson){
-				System.out.println("Could not find " + name);
-			}
-
-		}catch(IOException e){
-			System.out.println(e.getMessage());
-		
-		} 
-	}
 
 
 	
